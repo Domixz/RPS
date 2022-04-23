@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let rps = ['rock', 'paper', 'scissors'];
+        
+        
+        function game(botSelection, playerSelection){
+            if (playerSelection.toLowerCase() == botSelection){
+                return('Draw!');
+            }else if(playerSelection.toLowerCase()=='scissors' && botSelection=='rock'){
+                return('You lose! Rock beats scissors!');
+            }else if(playerSelection.toLowerCase()=='scissors' && botSelection=='paper'){
+                return('You win! Scissors beat paper!');
+            }else if(playerSelection.toLowerCase()=='rock' && botSelection=='paper'){
+                return('You lose! Paper beats rock!');
+            }else if(playerSelection.toLowerCase()=='rock' && botSelection=='scissors'){
+                return('You win! Rock beats scissors!');
+            }else if(playerSelection.toLowerCase()=='paper' && botSelection=='scissors'){
+                return('You lose! Scissors beat paper!');
+            }else if(playerSelection.toLowerCase()=='paper' && botSelection=='rock'){
+                return('You win! Paper beats rock!');
+            }else{
+                return('miss input');
+            }
+        }
+        for(let i=0;i<5; i++){
+            let botSelection = rps[Math.floor(Math.random() * rps.length)];
+            let playerSelection = prompt('what is your play?', '');
+            console.log('The bot chose: ' + botSelection);
+            console.log('You chose: ' + playerSelection);
+            console.log(game(botSelection, playerSelection));
+        }
+    </script>
+</body>
+</html>
