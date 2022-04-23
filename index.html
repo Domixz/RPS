@@ -5,36 +5,82 @@
     <title>Document</title>
 </head>
 <body>
+
+    <button class='rock'>Rock</button>
+    <button class='paper'>Paper</button>
+    <button class='scissors'>Scissors</button>
+    <div class='resultato'>Results:</div>
+
     <script>
         let rps = ['rock', 'paper', 'scissors'];
-        
-        
+        let pwins = 0;
+        let bwins = 0;
+        //block of logic
+
         function game(botSelection, playerSelection){
-            if (playerSelection.toLowerCase() == botSelection){
-                return('Draw!');
-            }else if(playerSelection.toLowerCase()=='scissors' && botSelection=='rock'){
+            if (playerSelection == botSelection){
+                return("It's a draw!");
+            }else if(playerSelection=='scissors' && botSelection=='rock'){
+                bwins+=1;
                 return('You lose! Rock beats scissors!');
-            }else if(playerSelection.toLowerCase()=='scissors' && botSelection=='paper'){
+            }else if(playerSelection=='scissors' && botSelection=='paper'){
+                pwins+=1;
                 return('You win! Scissors beat paper!');
-            }else if(playerSelection.toLowerCase()=='rock' && botSelection=='paper'){
+            }else if(playerSelection=='rock' && botSelection=='paper'){
+                bwins+=1;
                 return('You lose! Paper beats rock!');
-            }else if(playerSelection.toLowerCase()=='rock' && botSelection=='scissors'){
+            }else if(playerSelection=='rock' && botSelection=='scissors'){
+                pwins+=1;
                 return('You win! Rock beats scissors!');
-            }else if(playerSelection.toLowerCase()=='paper' && botSelection=='scissors'){
+            }else if(playerSelection=='paper' && botSelection=='scissors'){
+                bwins+=1;
                 return('You lose! Scissors beat paper!');
-            }else if(playerSelection.toLowerCase()=='paper' && botSelection=='rock'){
+            }else if(playerSelection=='paper' && botSelection=='rock'){
+                pwins+=1;
                 return('You win! Paper beats rock!');
             }else{
                 return('miss input');
             }
         }
-        for(let i=0;i<5; i++){
+
+        //click selection and detection
+
+        const rockButton = document.querySelector('.rock');
+        const paperButton = document.querySelector('.paper');
+        const scissorsButton = document.querySelector('.scissors');
+
+        rockButton.addEventListener('click', e);
+        paperButton.addEventListener('click', e);
+        scissorsButton.addEventListener('click', e);
+
+        //bot choice randomiser and displaying the winner
+        const result = document.querySelector('.resultato');
+        const thing1 = document.createElement('p');
+        const thing2 = document.createElement('p');
+        const lastThing = document.createElement('p');
+        function e(){
             let botSelection = rps[Math.floor(Math.random() * rps.length)];
-            let playerSelection = prompt('what is your play?', '');
-            console.log('The bot chose: ' + botSelection);
-            console.log('You chose: ' + playerSelection);
-            console.log(game(botSelection, playerSelection));
-        }
+            let playerSelection = this.classList;
+            thing1.textContent = ('The bot chose: ' + botSelection + ', ');
+            thing1.append('You chose: ' + playerSelection);
+            thing2.textContent = (game(botSelection, playerSelection));
+
+            if(bwins<5 && pwins<5){
+                lastThing.textContent = ('Player win count:' + pwins + ', ' + 'Bot win count:' + bwins);
+            }else if(pwins==5){
+                lastThing.textContent = ('Player won 5 times, congratulations, you have finished the game!');
+                pwins = 0;
+                bwins = 0;
+            }else{
+                lastThing.textContent = ('Bot won 5 times, better luck next time!'); 
+                pwins = 0;
+                bwins = 0;
+            };
+        };
+        result.style.cssText = 'padding-top: 16px';
+        result.appendChild(thing1);
+        result.appendChild(thing2);
+        result.appendChild(lastThing);
     </script>
 </body>
 </html>
